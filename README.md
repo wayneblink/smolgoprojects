@@ -1,0 +1,1 @@
+# smol go projects
