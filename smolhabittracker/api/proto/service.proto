@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package habits;
+option go_package = "smol/smolhabittracker/api";
+
+import "habit.proto";
+import "google/protobuf/timestamp.proto";
+
+service Habits {
+  rpc CreateHabit(CreateHabitRequest) returns (CreateHabitResponse);
+  rpc ListHabits(ListHabitsRequest) returns (ListHabitsResponse);
+  rpc TickHabit(TickHabitRequest) returns (TickHabitResponse);
+  rpc GetHabitStatus(GetHabitStatusRequest) returns (GetHabitStatusResponse);
+}
+
+message CreateHabitRequest {
+  string name = 1;
+  optional int32 weekly_frequency = 2;
+}
+
+message CreateHabitResponse {
+  Habit habit = 1;
+}
+
+message ListHabitsRequest {}
+
+message ListHabitsResponse {
+  repeated Habit habits = 1;
+}
+
+message TickHabitRequest {
+  string habit_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message TickHabitResponse {
+  
+}
+
+message GetHabitStatusRequest {
+  string habit_id = 1;
+  optional google.protobuf.Timestamp timestamp = 2;
+}
+
+message GetHabitStatusResponse {
+  Habit habit = 1;
+  int32 ticks_count = 2;
+}
